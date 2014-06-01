@@ -1,4 +1,4 @@
-/*  Extends the standard servo class to add a few parameters
+/*  Extends the standard Servo.h class to add a few parameters
     for controlling continuous rotation servos.  
     
     A continuous rotation servo has a center value that is set
@@ -26,7 +26,7 @@
     send the same command to both servos, and they will rotate in
     the same direction.
     
-    Finally, this class overrides the servo .write(int) function to
+    Finally, this class overrides the Servo .write(int) function to
     implement the rotational direction, but values over 544 to the 
     write function are passed back to the base class.  See below for more
     on this.
@@ -52,7 +52,7 @@ public:
   //as a microseconds command and rotation is not applied.
   void write(int value);
   
-  void write_ctr() { write( ctr ); }
+  void write_ctr() { Servo::write( ctr ); } //use base method
 
   int rotation() { return (rot == fwd) ? 1 : -1; }
   void set_rotation(Dir rotation) { rot = rotation; }
@@ -79,7 +79,7 @@ void Cont_rot_servo::write(int value)
       value = map(value, 0, 180, MAX_PULSE_WIDTH,  MIN_PULSE_WIDTH);    
     }
   }
-  this->writeMicroseconds(value);
+  this->writeMicroseconds(value); //use base method
 }
 
 Cont_rot_servo crs;
