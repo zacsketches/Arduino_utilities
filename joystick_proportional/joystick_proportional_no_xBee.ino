@@ -1,8 +1,8 @@
 #include <Esplora.h>
 
-/*  develop proportional motor commands for Williams based off joystick
-    input.  Output the control solution to serial for debugging.
-
+/*  
+    develop proportional motor commands for an Esplora joystick to a 
+    two servo bot and play with the RGB led along the way.
 */
 
 int rgb[3];        //values of red, green and blue for onboard LED
