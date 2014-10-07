@@ -1,10 +1,15 @@
 /* Increment a counter using quadrature encoding.
+
+   I implemented this on the Due which can use an interrup on any I/O
+   pin.  On Uno or other boards the interrupt pins will need to be 
+   configured in the sketch below.
    
    See the link below for the best explanation of quadrature I've found 
    on the web. 
    http://letsmakerobots.com/node/24031
    
-   I've adapted the code to be interupt driven.
+   I've adapted the code from OdddBot to be interupt driven, and added 
+   a counter.
    
    By Zac Staples, July 2014.
 */
@@ -21,10 +26,6 @@ volatile int out_val, old_val, new_val;
 volatile long count = 0;
 
 int QEM[16] = {0,-1,1,2,1,0,2,-1,-1,2,0,1,2,1,-1,0};  //see the link above for this
-
-//volatiles updated by the interrupt service routine
-volatile unsigned int count_A1 = 0;
-volatile unsigned int count_A2 = 0;
 
 void setup() {
   Serial.begin(115200);
