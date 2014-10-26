@@ -90,39 +90,5 @@ c_t = ilaplace(C);
 pretty(c_t)
 
 
-%try and scale the response to match a consistent gain
-Gain = 11.58 %from relatioship of K/a for all PWM runs
-scaled_v = final_v/Gain;
-scaled_t = t_final/Gain;
-
-figure(3);
-plot(scaled_t, scaled_v, G_t/Gain, G_y/Gain);
-ylabel('Angular Velocity (cts/ms)');
-xlabel('Time (ms)');
-title('\fontsize{14}Scaled Response to Step Input');
-legend('Smoothed data', 'Derived transfer function', 'Location', 'SouthEast');
-
-%find the velocity that represents 63% rise
-tau_val = .63 * max(scaled_v);
-[c, tau_index] = min(abs(scaled_v - tau_val));
-tau_val = scaled_v(tau_index); % Finds first one only!
-tau_val
-time_constant = scaled_t(tau_index);
-time_constant
-
-%find a and K
-a = 1/time_constant;
-forced_response = max(scaled_v);
-K = a * forced_response;
-a
-K
-
-%generate the transfer function
-num = K;
-den = poly([-a]);
-G = tf(num, den);
-G
-
-
 
     
